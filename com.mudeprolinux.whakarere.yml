@@ -18,6 +18,8 @@ finish-args:
   - --socket=pulseaudio
   # Notifications support
   - --talk-name=org.freedesktop.Notifications
+  # File system access for downloads
+  - --filesystem=xdg-download
 
 cleanup:
   - /include
@@ -45,5 +47,5 @@ modules:
     sources:
       - type: git
         url: https://github.com/tobagin/whakarere.git
-        tag: v0.1.2
-        commit: ded6e10dd73adc0abad858418b98806d7be472e5
+        tag: v0.1.4
+        commit: bf19c7878789dbbbf60c254b5fc12d013042bce2
