@@ -1,6 +1,6 @@
 app-id: com.mudeprolinux.whakarere
 runtime: org.gnome.Platform
-runtime-version: '45'
+runtime-version: '48'
 sdk: org.gnome.Sdk
 command: whakarere
 
@@ -17,16 +17,31 @@ finish-args:
   # PulseAudio
   - --socket=pulseaudio
 
+cleanup:
+  - /include
+  - /lib/pkgconfig
+  - /man
+  - /share/doc
+  - /share/gtk-doc
+  - /share/man
+  - /share/pkgconfig
+  - "*.la"
+  - "*.a"
+
 modules:
-  - name: Whakarere
-    buildsystem: simple
-    build-commands:
-      - install -D whakarere.py /app/bin/whakarere
-      - install -Dm644 whakarere.png /app/share/icons/hicolor/512x512/apps/com.mudeprolinux.whakarere.png
-      - install -Dm644 whakarere.desktop /app/share/applications/com.mudeprolinux.whakarere.desktop
-      - install -Dm644 com.mudeprolinux.whakarere.metainfo.xml /app/share/appdata/com.mudeprolinux.whakarere.metainfo.xml
+  - name: blueprint-compiler
+    buildsystem: meson
+    cleanup: "*"
     sources:
       - type: git
-        url: https://github.com/tobagin/whakarere
-        tag: 0.0.10
-        commit: f9793927e20fabc9bc598441619a5a1574dacb58
+        url: https://gitlab.gnome.org/jwestman/blueprint-compiler.git
+        tag: v0.18.0
+        commit: 07c9c9df9cd1b6b4454ecba21ee58211e9144a4b
+
+  - name: whakarere
+    buildsystem: meson
+    sources:
+      - type: git
+        url: https://github.com/tobagin/whakarere.git
+        tag: v0.1.1
+        commit: b5ce01a5089e7856eaf4705213f500ced8f26086
